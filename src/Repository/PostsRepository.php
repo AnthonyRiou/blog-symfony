@@ -20,29 +20,15 @@ class PostsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Posts::class);
     }
-
-    //    /**
-    //     * @return Posts[] Returns an array of Posts objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('p.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Posts
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    // function pour récupérer des datas de la base de données, équivalent à une requête SQL.
+    public function findByTitle(string $title): array
+    {
+       return $this->createQueryBuilder('p')
+             ->where('p.title = :title')
+            //  ->orderBy('p.publishedAt', 'DESC')
+             ->setParameter('title', $title)
+             ->getQuery()   
+             ->getResult();
+    }
+    
 }
