@@ -21,14 +21,16 @@ class AppFixtures extends Fixture
     // et prend en paramètre @param : UserPasswordHasherInterface
     //$hasher qui est l'instance du service de hachage de mot de passe.
     // instance du service de slugger qui permet de sluggifier 
+    // Ce constructor permet de'instancier les 2 méthodes suivantes utilisable dans le reste 
+    // du code.
     public function __construct (
         private readonly UserPasswordHasherInterface $hasher,
         private readonly SluggerInterface $slugger
     ){
-
-    // La fonction suivante permet de charger les données de base dans la base de données
-    // et prend en paramètre @param : ObjetManager $manager est le gestionnaire d'identité pour l'opération de persistance
     }
+
+      // La fonction suivante permet de charger les données de base dans la base de données
+    // et prend en paramètre @param : ObjetManager $manager est le gestionnaire d'identité pour l'opération de persistance
     public function load(ObjectManager $manager): void
     {
         // $product = new Product();
