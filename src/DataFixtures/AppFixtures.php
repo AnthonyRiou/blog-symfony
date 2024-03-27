@@ -33,10 +33,11 @@ class AppFixtures extends Fixture
     // et prend en paramètre @param : ObjetManager $manager est le gestionnaire d'identité pour l'opération de persistance
     public function load(ObjectManager $manager): void
     {
-        // $product = new Product();
-        // $manager->persist($product);
+        // L'ordre est très important.
         $this->loadUsers($manager);
-        $manager->flush();
+        $this->loadTags($manager);
+        $this->loadPosts($manager);
+    
     }
 
     
