@@ -9,12 +9,23 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/xampp/htdocs/cours-symfony/blog-symf/src/Controller/MainController.php</code></li>
-        <li>Your template at <code>C:/xampp/htdocs/cours-symfony/blog-symf/templates/main/index.html.twig</code></li>
-    </ul>
+  
+    {% for post in posts %}
+        {# Utilisation de username car c'est une variable unique, onn est sur qu'il y en aura qu'une. #}
+        
+        <article>
+             {# Utilisation de la method path pour faire un lien vers une autre page #}
+            <a href="{{path('show', {id: post.id})}}" target="_blanck">
+            <h2> {{post.title}} </h2></a>
+            <p> {{post.summary | title}} </p>
+            <time> {{post.publishedAt | date ('d M Y')| lower}} </time>
+            {# <time> {{date(post.publishedAt).format('d M Y')}}</time> #}
+        </article>
+        <br>
+        {% if post.author.username == ('jane_admin') %}
+        <span>😃👱🏽‍♀️😃</span>
+        {% endif %}
+    {% endfor %}
+    
 </div>
 {% endblock %}

@@ -56,9 +56,25 @@ class MainController extends AbstractController
 
     public function index(PostsRepository $repository): Response 
     {
-        // $posts = $repository->findAll();
-        $posts = $repository->findByTitle("un titre");
-        dd($posts);
+        $posts = $repository->findAll();
+        // $posts = $repository->findByTitle("un titre");
+       
+        //  La méthod ->render est utilisable seulement si on utilise : 
+        // class MainController extends AbstractController et permet de diriger vers 
+        // la page index.html.twig
+        return $this->render('main/index.html.twig',
+        [
+            'posts' => $posts
+        ]
+    );
+    }
+    #[Route('/{id}', name: 'show')]
+    public function show(Posts $post): Response 
+    {
+        return $this->render('main/show.html.twig', [
+            'post' => $post
+        ]
+        );
     }
 
 

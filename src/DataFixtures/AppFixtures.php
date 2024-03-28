@@ -113,7 +113,7 @@ class AppFixtures extends Fixture
             foreach(range(1, 5) as $i) {
                 // Récupération de l'auteur de commentaire fictif.
                 /**@var Users $commentAuthor */
-                $commentAuthor = $this->getReference('John_user');
+                $commentAuthor = $this->getReference('john_user');
 
                 // Création d'une nouvelle instance de l'entité "Comments".
                 $comment = (new Comments())
@@ -163,8 +163,8 @@ class AppFixtures extends Fixture
             $this->getRandomText(),
             // 3: Contenu aléatoire de la publication
             $this->getPostContent(), 
-            // 4: Date de publicationcalculée en fonction de l'index et de l'heure actuelle   
-            (new \DateTime('now - '. $i . 'days'))->setTime(random_int(8, 17),random_int(7, 49), random_int(0, 59)),
+            // 4: Date de publication calculée en fonction de l'index et de l'heure actuelle   
+            (new \DateTimeImmutable('now - '. $i . 'days'))->setTime(random_int(8, 17),random_int(7, 49), random_int(0, 59)),
             //  5: Auteur de la publication
             $user,
             // 6: Tags aléatoire associés à la publication
@@ -184,7 +184,7 @@ class AppFixtures extends Fixture
             // $userData = [$fullName, $Uername, $password, $email, $role];
             ['Jane Doe', 'jane_admin', 'kitten','jane_admin@symfony.com',['ROLE_ADMIN']],
             ['Tom Doe', 'tom_admin', 'kitten','tom_admin@symfony.com',['ROLE_ADMIN']],
-            ['John Doe', 'john_admin', 'kitten','john_user@symfony.com',['ROLE_USER']]
+            ['John Doe', 'john_user', 'kitten','john_user@symfony.com',['ROLE_USER']]
         ];
     }
 
