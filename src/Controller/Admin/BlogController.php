@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
 // Définition d'une route : 
-#[Route('', name: 'admin_blog')]
+#[Route('/admin/blog', name: 'admin_blog_')]
 final class BlogController extends AbstractController
 {
     /**

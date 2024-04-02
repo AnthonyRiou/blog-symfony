@@ -67,6 +67,7 @@ class MainController extends AbstractController
             'posts' => $posts
         ]
     );
+    
     }
     #[Route('/{id}', name: 'show')]
     public function show(Posts $post): Response 
