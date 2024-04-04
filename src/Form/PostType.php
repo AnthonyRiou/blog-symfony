@@ -7,6 +7,7 @@ use App\Entity\Tags;
 use App\Entity\Users;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,7 +17,7 @@ class PostType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('slug')
+            ->add('slug', TextType::class, ['required' => false])
             ->add('summary')
             ->add('content');
     }

@@ -23,33 +23,51 @@
 
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/cyborg/bootstrap.min.css">
 
+    	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 	</head>
 	<body>
 
 		{% block header %}
+
+			{# Cette ligne utilise la fonction app.request.get('_route') pour récupérer #}
+			{# le nom de la route actuelle à partir de l'objet de requête. #}
+			{# Ensuite, elle stocke ce nomm de route dans la variable_route en utilisant la syntaxe Twig {% set variable = value %} #}
+			{# Cette opération est couramment utilisée dans les templates Twig pour obtenir des informations 
+    		sur la route actuellement utilisée. Ces informations peuvent ensuite être utilisées pour 
+    		la logique conditionnelle ou pour modifier le comportement ou l'apparence de la page en fonction de la route. 
+    		Par exemple, vous pouvez utiliser cette variable pour appliquer des classes CSS spécifiques aux éléments  #}
+    		{# de navigation actifs ou pour afficher des éléments de menu différents en fonction de la page actuelle. #}
 			{% set _route = app.request.get('_route') %}
-			<header>
+			<header style="margin-bottom: 5rem">
+
+			{# Barre de navigation Bootstrap #}
 				<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
 					<div class="container">
+
+					{# Marque, logo de la barre de navigation #}
 						<a class="navbar-brand" href="{{ path('index') }}">
 							Notre Blog en Symfony 7
 						</a>
-						<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#appNavbar">
+
+						{# Button de bascule pour la navigation mobile #}
+						<button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#appNavbar">
 							<span class="navbar-toggler-icon"></span>
 						</button>
 
+						{# Contenu de la barre de navigation format mobile #}
 						<div class="navbar-collapse collapse" id="appNavbar">
 							<ul class="navbar-nav ml-auto">
 								{% block header_navigation_links %}
 									<li class="nav-item {{ _route == 'index' ? 'active' : " "}}">
 										<a href="{{ path('index') }}" class="nav-link">
-											<i class="fa fa-home" aria-hidden="true">Blog</i>
+											<i class="bi bi-house-fill" aria-hidden="true">Blog</i>
 										</a>
 									</li>
 									<li class="nav-item">
 										<a href="{{ path('admin_blog_index') }}" class="nav-link">
-											<i class="fa fa-lock" aria-hidden="true">Admin</i>
+											<i class="bi bi-person-fill-lock" aria-hidden="true">Admin</i>
 										</a>
 									</li>
 								{% endblock %}
@@ -60,12 +78,14 @@
 			</header>
 		{% endblock %}
 
+
 		<div class="container body-container">
 			{% block body %}
+			{# Contenu principal #}
 			<div class="row">
 				<div id="main" class="col-sm-9">
-					{%block main%}
-						{%endblock%}
+					{% block main %}
+						{% endblock %}
 					</div>
 					<div id="sidebar" class="col-sm-3">
 						{% block sidebar %}{% endblock %}
@@ -75,19 +95,30 @@
 		</div>
 
 		{% block footer%}
+		{# Pied de page #}
 		<footer>
 			<div class="container">
 				<div class="row">
+
+					{# Droit d'auteur #}
 					<div id="footer-copyright" class="col-md-6">
 						<p>&copy;
 							{{'now' | date ('Y')}}</p>
 						<p>{{'mit_license'}}</p>
 					</div>
 
+					{# Ressources #}
 					<div id="footer-ressource" class="col-md-6">
 						<p>
-							<a href="">
-								<i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
+						{# Lien vers le compte Twitter - X #}
+						{# noopener et noreferrer #}
+							<a rel="noopener noreferrer" target="_blank" href="https://twitter.com" title="Rejoignez notre Twitter">
+								<i class="bi bi-twitter-x" aria-hidden="true"></i>
+							</a>
+
+							{# Lien vers notre blog #}
+							<a target="_blank" href="#" title="Notre mini Blog">
+								<i class="bi bi-twitter-x" aria-hidden="true"></i>
 							</a>
 						</p>
 					</div>

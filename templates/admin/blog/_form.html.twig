@@ -1,0 +1,15 @@
+{# Pas besoin d'étendre et de créer un block car ce ficher form est "include" dans le fichier Edit.
+Pour ouvrir un formulaire on utilise form_start et form_end pour fermer le formulaire#}
+
+{{ form_start(form, {attr: attr |default( {})}) }}
+{{ form_widget(form) }}
+
+<button type="submit" class="{{button_css | default("btn btn-primary")}}">
+    <i class="bi bi-floppy-fill" aria-hidden="true"></i>Submit
+</button>
+
+<a href="{{path('admin_blog_index')}}" class="btn btn-link">
+    <i class="bi bi-columns-reverse" aria-hidden="true"></i> All Posts
+</a>
+
+{{ form_end(form) }}
