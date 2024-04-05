@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block block_main %}
+
+<div class="row">
+    <div class="col-sm-7">
+        <div class="well">
+        
+        <form action="" method="post">
+            <fieldset>
+                <legend>
+                    <i class="bi bi-person-cercle" aria-hidden="true"></i> Login
+                </legend>
+
+                <div class="form-group">
+                        <label for="username">Username</label>
+                        <input id="username" class="form-control" type="text" name="_username" value="{{last_username}}">
+                        {# On utilise un "_" avant username dans "name" car c'est obligatoire pour que Symfony reconnaît les paramètres et récupère les infos #}
+                </div>
+
+                <div class="form-group form-group-password">
+                        <label for="password">Username</label>
+                        <input id="password" class="form-control" type="text" name="_password">
+                </div>
+
+                <div class="form-group">
+                        <label>
+                        <input type="checkbox" name"_remember_me" checked >
+                        {# Permet de garder l'utilisateur connaît si remembe_me a été configuré dans le fichier security.yaml de config.package #}
+                        Keep me logged in
+                        </label>
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate')}}">
+
+               <button type="submit" class="btn btn-primary">
+               <i class="bi bi-box-arrow-in-right" aria-hidden="true"></i>Login
+               </button>
+               
+            </fieldset>
+        </form>
+
+        </div>
+    </div>
+</div>
+    
+{% endblock %}

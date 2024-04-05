@@ -17,6 +17,25 @@ security:
             lazy: true
             provider: app_user_provider
 
+    # activate different ways to authenticate :
+            form_login:
+                check_path: login
+                login_path: login
+                # enable_csrf sert a avoir des idenifiants unique.
+                enable_csrf: true
+                default_target_path: index
+
+            remember_me: 
+                    secret: "%kernel.secret%"
+                # Il est demandé au Kernel de redonner la clé secrète car la page est rechargé à chaque demande par le kernel, donc cette page est vierge de toute info et donc de la clé secrète.
+                    lifetime: 604800
+
+            logout:
+                    target: index
+
+            entry_point: "form_login"
+
+
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 

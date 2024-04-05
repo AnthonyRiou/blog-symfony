@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
 // Définition d'une route : 
 #[Route('/admin/blog', name: 'admin_blog_')]
 final class BlogController extends AbstractController
@@ -30,7 +31,7 @@ final class BlogController extends AbstractController
     #[Route('', name: 'index', methods: ['GET'])]
     public function index(PostsRepository $repository): Response 
     {
-        $posts = $repository->findAll();
+        $posts = $repository->findBy([], orderBy:['published_at' => 'DESC']);
         return $this->render('admin/blog/index.html.twig', [
         'posts' => $posts
         ]);
@@ -85,5 +86,17 @@ final class BlogController extends AbstractController
         return $this->render('admin/blog/show.html.twig', [
             'post' => $post
         ]);
+    }
+   
+    #[Route('/{id}', name: 'delete', methods: ['DELETE'])]
+    public function delete(Posts $post, Request $request, EntityManagerInterface $em): Response
+    {
+        /** @var string | null $token  */
+        $token = $request->getPayLoad()->get('token');
+        if($this->isCsrfTokenValid('delete', $token)) {
+        $em->remove($post);
+        $em->flush();
+        }
+        return $this->redirectToRoute('admin_blog_index', status: Response::HTTP_SEE_OTHER);
     }
 }

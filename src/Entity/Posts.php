@@ -2,13 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\PostsRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PostsRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PostsRepository::class)]
+#[UniqueEntity('title')]
 class Posts
 {
     #[ORM\Id]
@@ -17,15 +20,21 @@ class Posts
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    // Mise en place de contraintes pour les formulaire de création de post.
+    // Pour cela, on utilise la contrainte Not Blank. Après avoir intégrer la class (use en haut de l'écran), on la modifie avec "as Assert" pour avoir accès à  toutes les contraintes.
+    // Pour utiliser les contraintes, on ouvre un tableau après le symbole # et on l'intègre dedans.
+    #[Assert\NotBlank]
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank]
     private ?string $summary = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank]
     private ?string $content = null;
 
     #[ORM\Column]
@@ -44,6 +53,7 @@ class Posts
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->published_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
