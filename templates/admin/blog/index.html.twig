@@ -11,6 +11,9 @@
             <th scope = "col">
                 <i class="bi bi-calendar-fill" aria-hidden='true'></i> Published
             </th>
+            <th scope = "col">
+                <i class="bi bi-person-circle" aria-hidden='true'></i> Author
+            </th>
             <th scope = "col" class='text-center'>
                 <i class="bi bi-gear-fill" aria-hidden='true'></i> Action
             </th>
@@ -23,15 +26,19 @@
         <tr>
             <td>{{post.title}}</td>
             <td>{{post.publishedAt | date('d/m/y H:i')}}</td>
+            <td>{{post.author.username}}</td>
             <td class="text-right">
                 <div class="item-actions">
                     <a class="btn btn-sm btn-secondary" href="{{ path('admin_blog_show', {id: post.id}) }}">
                     <i class="bi bi-eye-fill" aria-hidden='true'></i> Show
                     </a>
 
-                    <a class="btn btn-sm btn-primary" href="{{ path('admin_blog_edit', {id: post.id}) }}">
-                    <i class="bi bi-pencil-fill" aria-hidden='true'></i> Edit
-                    </a>
+                    {% if post.author == app.user %}
+                        <a class="btn btn-sm btn-primary" href="{{ path('admin_blog_edit', {id: post.id}) }}">
+                        <i class="bi bi-pencil-fill" aria-hidden='true'></i> Edit
+                        </a>
+                    {% endif %}
+                   
                 </div>
             </td>
         </tr>

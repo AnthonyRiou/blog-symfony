@@ -23,6 +23,8 @@
     <{% endblock %}
 
     {% block sidebar %}
+        {% if post.author == app.user %}
+            
         {# mb-3 signifie margin-bottom = 3rem #}
         <div class="section mb-3">
             <a href={{ path('admin_blog_edit', {id: post.id}) }} class="btn btn-lg btn-block btn-success">
@@ -46,6 +48,7 @@
         dans le template inclus. #}
             {{include('admin/blog/_delete_form.html.twig', {post:post}, with_context = false)}}
         </div>
+        {% endif %}
 
         {{parent()}}
     {% endblock %}

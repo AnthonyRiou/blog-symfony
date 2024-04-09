@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Posts;
+use App\Entity\Users;
 use App\Form\PostType;
 use Doctrine\ORM\EntityManager;
 use App\Repository\PostsRepository;
@@ -11,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
@@ -38,9 +40,9 @@ final class BlogController extends AbstractController
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function create(Request $request, EntityManagerInterface $em, UsersRepository $repository): Response 
+    public function create(#[CurrentUser] Users $user,Request $request, EntityManagerInterface $em, UsersRepository $repository): Response 
     {
-        $user = $repository->findOneBy(['username' => 'jane_admin']);
+        // $user = $repository->findOneBy(['username' => 'jane_admin']);
         $post = new Posts();
         $post->setAuthor($user);
         $form = $this-> createForm(PostType::class, $post);

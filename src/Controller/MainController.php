@@ -9,6 +9,7 @@ use Doctrine\Bundle\DoctrineBundle;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MainController extends AbstractController
@@ -69,7 +70,7 @@ class MainController extends AbstractController
     );
     
     }
-    #[Route('/{id}', name: 'show')]
+    #[Route('/{id}', name: 'show', requirements: ['id'=>Requirement::DIGITS])]
     public function show(Posts $post): Response 
     {
         return $this->render('main/show.html.twig', [

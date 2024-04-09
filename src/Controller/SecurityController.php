@@ -10,7 +10,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 final Class SecurityController extends AbstractController 
 { 
-    #[Route('/login',name: 'login', methods:['GET', 'POST'])]
+    #[Route('/login', name: 'login', methods:['GET', 'POST'])]
     public function login(AuthenticationUtils $utils): Response
     {
         // Cette fonction ramène une réponse en cas d'erreur d'authentification avec la method getsLastAuthenticationError(), dans ce cas la, avec la method getLastUsernam(), le der nier username est récupéré pour éviter à l'utilisateur de retaper son identifiant.

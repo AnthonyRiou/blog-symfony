@@ -181,7 +181,7 @@ class AppFixtures extends Fixture
     private function getUsersData(): array 
     {
         return [
-            // $userData = [$fullName, $Uername, $password, $email, $role];
+            // $userData = [$fullName, $Username, $password, $email, $role];
             ['Jane Doe', 'jane_admin', 'kitten','jane_admin@symfony.com',['ROLE_ADMIN']],
             ['Tom Doe', 'tom_admin', 'kitten','tom_admin@symfony.com',['ROLE_ADMIN']],
             ['John Doe', 'john_user', 'kitten','john_user@symfony.com',['ROLE_USER']]
