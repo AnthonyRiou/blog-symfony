@@ -23,7 +23,7 @@
     <{% endblock %}
 
     {% block sidebar %}
-        {% if post.author == app.user %}
+        {% if (is_granted('POST_MUTATE', post)) %}
             
         {# mb-3 signifie margin-bottom = 3rem #}
         <div class="section mb-3">

@@ -6,12 +6,14 @@ use App\Entity\Posts;
 use App\Entity\Users;
 use App\Form\PostType;
 use Doctrine\ORM\EntityManager;
+use App\Security\Voter\PostVoter;
 use App\Repository\PostsRepository;
 use App\Repository\UsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -63,8 +65,10 @@ final class BlogController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: 'edit', methods: ['GET', 'POST'])]
+    #[IsGranted(PostVoter::MUTATE, 'post')]
     public function edit(Posts $post, Request $request, EntityManagerInterface $em): Response
     {
+        // $this->denyAccessUnlessGranted('POST_MUTATE', $post);
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
@@ -91,6 +95,7 @@ final class BlogController extends AbstractController
     }
    
     #[Route('/{id}', name: 'delete', methods: ['DELETE'])]
+    #[IsGranted(PostVoter::MUTATE, 'post')]
     public function delete(Posts $post, Request $request, EntityManagerInterface $em): Response
     {
         /** @var string | null $token  */
